@@ -167,10 +167,57 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Care &amp; Share Foundation. All rights reserved.</p>
+               <p>&copy; <span id="current-year">2025</span> Care &amp; Share Foundation. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script src="js_assets/script.js"></script>
+    <script>
+        // ===== INTERNAL JAVASCRIPT =====
+        
+        // 1. Highlight current page in navigation
+        (function () {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(function (link) {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        })();
+
+        // 2. Back to Top Button
+        (function () {
+            const backToTop = document.createElement('button');
+            backToTop.id = 'back-to-top';
+            backToTop.textContent = '↑';
+            backToTop.style.cssText = `
+                position: fixed; bottom: 30px; right: 30px;
+                width: 50px; height: 50px; border-radius: 50%;
+                background: #e8a735; color: #fff; border: none;
+                font-size: 22px; font-weight: bold; cursor: pointer;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+                opacity: 0; visibility: hidden; transition: 0.3s; z-index: 999;
+            `;
+            document.body.appendChild(backToTop);
+            
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 300) {
+                    backToTop.style.opacity = '1';
+                    backToTop.style.visibility = 'visible';
+                } else {
+                    backToTop.style.opacity = '0';
+                    backToTop.style.visibility = 'hidden';
+                }
+            });
+            
+            backToTop.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
 
 </body>
 </html>
